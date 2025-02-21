@@ -66,4 +66,5 @@ int main()
     cout << "Estudiante de Universidad: " << eu.getNombre() << ", Edad: " << eu.getEdad() << ", Carrera: " << eu.getCarrera() << endl;
 
     return 0;
+
 }
