@@ -1,70 +1,98 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
-class Estudiante {
+class CuentaBancaria {
 private:
-    string nombre;
-    int edad;
+    int cuenta;
+    double saldo;
+    string nPropietario;
+
 public:
-    Estudiante(string nom, int ed) {
-        nombre = nom;
-        edad = ed;
+    CuentaBancaria(int _cuenta, string _nPropietario, double _saldo) {
+        cuenta = _cuenta;
+        nPropietario = _nPropietario;
+        saldo = _saldo;
     }
-    string getNombre() {
-        return nombre;
+
+    void transferir() {
+        double cantidad;
+        cout << "Que cantidad desea transferir?" << endl;
+        cin >> cantidad;
+
+        if (cantidad > 0 && cantidad <= saldo) {
+            saldo -= cantidad;
+            cout << "Tu transferencia se ha realizado correctamente." << endl;
+        }
+        else {
+            cout << "Algo ha salido mal, verifique la cantidad." << endl;
+        }
     }
-    int getEdad() {
-        return edad;
+
+    void mostrarSaldo() {
+        cout << "Saldo actual de " << nPropietario << ": Q" << saldo << endl;
     }
 };
 
-class EstudiantePrimaria : public Estudiante {
-private:
-    string grado;
+// Subclase para Banco Industrial
+class BancoIndustrial : public CuentaBancaria {
 public:
-    EstudiantePrimaria(string nom, int ed, string gr) : Estudiante(nom, ed) {
-        grado = gr;
+    BancoIndustrial(int _cuenta, string _nPropietario, double _saldo)
+        : CuentaBancaria(_cuenta, _nPropietario, _saldo) {
     }
-    string getGrado() {
-        return grado;
+
+    void beneficios() {
+        cout << "Banco Industrial ofrece descuentos en comercios aliados." << endl;
     }
 };
 
-class EstudianteSecundaria : public Estudiante {
-private:
-    string especialidad;
+// Subclase para Banrural
+class Banrural : public CuentaBancaria {
 public:
-    EstudianteSecundaria(string nom, int ed, string esp) : Estudiante(nom, ed) {
-        especialidad = esp;
+    Banrural(int _cuenta, string _nPropietario, double _saldo)
+        : CuentaBancaria(_cuenta, _nPropietario, _saldo) {
     }
-    string getEspecialidad() {
-        return especialidad;
+
+    void beneficios() {
+        cout << "Banrural ofrece prestamos con tasas bajas para agricultores." << endl;
     }
 };
 
-class EstudianteUniversidad : public Estudiante {
-private:
-    string carrera;
-public:
-    EstudianteUniversidad(string nom, int ed, string car) : Estudiante(nom, ed) {
-        carrera = car;
+class Bantrab : public CuentaBancaria {
+public: 
+    Bantrab(int _cuenta, string _nPropietario, double _saldo)
+        : CuentaBancaria(_cuenta, _nPropietario, _saldo) {
     }
-    string getCarrera() {
-        return carrera;
+    void beneficios() {
+        cout << "Bantrab ofrece grandes beneficios para trabajadores." << endl;
     }
 };
 
-int main()
-{
-    EstudiantePrimaria ep("Juan", 10, "5to Grado");
-    EstudianteSecundaria es("Maria", 15, "Ciencias");
-    EstudianteUniversidad eu("Pedro", 20, "Ingeniería");
+int main() {
+    BancoIndustrial cuentaBI(12345, "Juan Perez", 5000);
+    Banrural cuentaBanrural(67890, "Maria Lopez", 3000);
+    Bantrab cuentaBantrab(5434, "Saul Sican", 4233);
 
-    cout << "Estudiante de Primaria: " << ep.getNombre() << ", Edad: " << ep.getEdad() << ", Grado: " << ep.getGrado() << endl;
-    cout << "Estudiante de Secundaria: " << es.getNombre() << ", Edad: " << es.getEdad() << ", Especialidad: " << es.getEspecialidad() << endl;
-    cout << "Estudiante de Universidad: " << eu.getNombre() << ", Edad: " << eu.getEdad() << ", Carrera: " << eu.getCarrera() << endl;
+    cuentaBI.mostrarSaldo();
+    cuentaBI.transferir();
+    cuentaBI.mostrarSaldo();
+    cuentaBI.beneficios();
+
+    cout << endl;
+
+    cuentaBanrural.mostrarSaldo();
+    cuentaBanrural.transferir();
+    cuentaBanrural.mostrarSaldo();
+    cuentaBanrural.beneficios();
+
+    cout << endl;
+
+    cuentaBantrab.mostrarSaldo();
+    cuentaBantrab.transferir();
+    cuentaBantrab.mostrarSaldo();
+    cuentaBantrab.beneficios();
 
     return 0;
-
 }
