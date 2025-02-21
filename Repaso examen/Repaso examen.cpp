@@ -15,3 +15,9 @@ public:
 };
 
 class libro2 : titulos {
+private:
+	string titulo;
+	string autor;
+	int anio;
+	string editorial;
+	int paginas;
